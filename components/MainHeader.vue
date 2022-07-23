@@ -4,6 +4,7 @@
       src="~assets/img/logo_jc_bazel.svg"
       alt="Logo Koninklijke judoclub Bazel"
       height="200"
+      width="155.667"
     />
     <h1>Inschrijving seizoen 2022-2023</h1>
   </header>
