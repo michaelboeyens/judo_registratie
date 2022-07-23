@@ -4,7 +4,10 @@ import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
   css: ["normalize.css", "@formkit/themes/genesis", "~/assets/scss/main.scss"],
   modules: ["@formkit/nuxt"],
+  telemetry: false,
   typescript: {
     shim: false,
+    strict: true,
+    typeCheck: true,
   },
 });
