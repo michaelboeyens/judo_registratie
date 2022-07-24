@@ -28,6 +28,12 @@
             />
           </ClientOnly>
           <FormKit
+            type="checkbox"
+            name="gJudoka"
+            label="Schrijft u in voor de g-judo groep?"
+            :value="false"
+          />
+          <FormKit
             type="text"
             name="firstName"
             label="Voornaam"
@@ -68,7 +74,7 @@
             name="email"
             label="Emailadres"
             validation="required|email"
-            placeholder="mijnemailnaam@judobazel.be"
+            placeholder="mijnemailadres@judobazel.be"
             :validation-messages="{
               required: 'Wat is uw emailadres?',
               email: 'Gelieve een geldig emailadres op te geven',
@@ -88,7 +94,7 @@
             name="streetName"
             label="Straat"
             validation="required"
-            placeholder="dorpstraat"
+            placeholder="dorpstraat 1"
             :validation-messages="{ required: 'In welke straat woont u' }"
           />
           <FormKit
@@ -118,10 +124,10 @@
 </template>
 
 <script setup lang="ts">
-import type { memberType } from "@/types";
+import type { memberType, baseMemberType, familyType } from "@/types";
 
-const memberData = ref({});
-const familyData = ref({});
+const memberData = ref<Partial<baseMemberType>>({});
+const familyData = ref<Partial<familyType>>({});
 
 const submitHandler = (content: memberType) => {
   console.log(content);
@@ -136,7 +142,7 @@ const submitHandler = (content: memberType) => {
   &__form {
     &-input,
     &-fieldset {
-      background-color: var(--white);
+      background-color: var(--form-input-background-color);
     }
     &-wrapper,
     &-fieldset {
