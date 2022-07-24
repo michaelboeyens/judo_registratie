@@ -1,4 +1,4 @@
-export type familyType = {
+type familyType = {
   email: string;
   phone: string;
   streetName: string;
@@ -6,7 +6,7 @@ export type familyType = {
   city: string;
 };
 
-export type baseMemberType = {
+type baseMemberType = {
   registrationType: "oldMember" | "newMember" | "";
   gJudoka: boolean;
   firstName: string;

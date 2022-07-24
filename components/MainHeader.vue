@@ -10,8 +10,6 @@
   </header>
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped lang="scss">
 .header {
   background-color: var(--header-background-color);
