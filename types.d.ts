@@ -13,4 +13,7 @@ type member = {
   other: string;
 };
 
-export type memberType = family & member;
+export type memberType = {
+  family: family;
+  member: member;
+};
