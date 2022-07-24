@@ -5,6 +5,7 @@ export type familyType = {
   postalCode: string;
   city: string;
 };
+
 export type baseMemberType = {
   registrationType: "oldMember" | "newMember" | "";
   gJudoka: boolean;
