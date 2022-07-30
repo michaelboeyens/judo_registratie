@@ -4,6 +4,7 @@
     <main class="content">
       <h2>Inschrijvingsformulier</h2>
       <FormKit
+        v-if="!submittedForm"
         type="form"
         :config="{
           classes: {
@@ -127,6 +128,7 @@
         </section>
         <FormKit type="submit" label="Inschrijven" :disabled="!valid" />
       </FormKit>
+      <p v-else>Uw inschrijvingsformulier is verzonden!</p>
     </main>
   </div>
 </template>
@@ -135,9 +137,26 @@
 import type { memberType } from "@/types";
 
 const pageCounter = ref(0);
+const submittedForm = ref(false);
 
-const submitHandler = (content: memberType) => {
+const submitHandler = async (content: memberType) => {
   console.log(content);
+
+  try {
+    const { data, error } = await useFetch("/api/form", {
+      method: "POST",
+      body: content,
+    });
+
+    console.log("response: ", data.value);
+    if (error.value) {
+      console.error("error: ", error.value);
+    } else {
+      submittedForm.value = true;
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 </script>
 
