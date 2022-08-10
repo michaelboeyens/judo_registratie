@@ -2,6 +2,14 @@
   <div>
     <MainHeader />
     <main class="content">
+      <div class="content__progress">
+        <div
+          v-for="item in 3"
+          class="content__pageindicator"
+          :class="{ 'content__pageindicator--active': item <= pageCounter + 1 }"
+          :key="`pageindicator-${item}`"
+        />
+      </div>
       <h2>Inschrijvingsformulier</h2>
       <FormKit
         v-if="!submittedForm"
@@ -70,7 +78,12 @@
               rows="10"
               placeholder="Hier kan je andere gegevens plaatsen die mogelijk belangrijk zijn voor de trainers"
             />
-            <FormKit type="button" label="Volgende" @click="pageCounter = 1" />
+            <FormKit
+              type="button"
+              label="Volgende"
+              @click="pageCounter = 1"
+              :classes="{ wrapper: 'content__pagebuttons--rightalign' }"
+            />
           </FormKit>
         </section>
         <section v-show="pageCounter === 1">
@@ -123,10 +136,44 @@
               placeholder="Bazel"
               :validation-messages="{ required: 'In welke gemeente woont u?' }"
             />
-            <FormKit type="button" label="Vorige" @click="pageCounter = 0" />
+            <div class="content__pagebuttons--both">
+              <FormKit type="button" label="Vorige" @click="pageCounter = 0" />
+              <FormKit
+                type="button"
+                label="Volgende"
+                @click="pageCounter = 2"
+              />
+            </div>
           </FormKit>
         </section>
-        <FormKit type="submit" label="Inschrijven" :disabled="!valid" />
+        <section v-show="pageCounter === 2">
+          <FormKit type="group" name="agreement">
+            <ClientOnly>
+              <FormKit
+                type="select"
+                label="Bent u ermee akkoord dat foto's van u/uw kind op sociale media verschijnen?"
+                :options="{
+                  yes: 'Ja, ik ben hiermee akkoord',
+                  no: 'Nee, ik ben hier niet mee akkoord',
+                }"
+                placeholder="Bent u hiermee akkoord?"
+                name="socialMediaAgreement"
+              />
+            </ClientOnly>
+          </FormKit>
+          <FormKit
+            type="button"
+            label="Vorige"
+            @click="pageCounter = 1"
+            :classes="{ wrapper: 'content__pagebuttons--leftalign' }"
+          />
+        </section>
+        <FormKit
+          type="submit"
+          label="Inschrijven"
+          :disabled="!valid"
+          :classes="{ outer: 'content__submit' }"
+        />
       </FormKit>
       <p v-else>Uw inschrijvingsformulier is verzonden!</p>
     </main>
@@ -173,6 +220,42 @@ const submitHandler = async (content: memberType) => {
     &-wrapper,
     &-fieldset {
       max-width: none;
+    }
+  }
+  &__pagebuttons {
+    display: flex;
+    gap: 5rem;
+    &--leftalign,
+    &--rightalign,
+    &--both {
+      @extend .content__pagebuttons;
+    }
+    &--leftalign {
+      justify-content: flex-start;
+    }
+    &--rightalign {
+      justify-content: flex-end;
+    }
+    &--both {
+      justify-content: space-between;
+    }
+  }
+  &__submit {
+    margin-top: 2rem;
+  }
+  &__progress {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  &__pageindicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: grey;
+    &--active {
+      background-color: #a52822;
     }
   }
 }
