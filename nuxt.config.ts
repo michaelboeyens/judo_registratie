@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
   css: ["normalize.css", "@formkit/themes/genesis", "~/assets/scss/main.scss"],
   modules: ["@formkit/nuxt"],
+  nitro: { preset: "netlify" },
   telemetry: false,
   typescript: {
     shim: false,
