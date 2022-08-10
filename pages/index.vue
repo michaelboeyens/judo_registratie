@@ -39,12 +39,6 @@
               />
             </ClientOnly>
             <FormKit
-              type="checkbox"
-              name="gJudoka"
-              label="Schrijft u in voor de g-judo groep?"
-              :value="false"
-            />
-            <FormKit
               type="text"
               name="firstName"
               label="Voornaam"
@@ -123,6 +117,8 @@
               name="postalCode"
               validation="required|number|length:4,4"
               placeholder="9150"
+              minlength="4"
+              maxlength="4"
               :validation-messages="{
                 required: 'Wat is uw postcode?',
                 number: 'De postcode moet een nummer zijn.',
@@ -148,7 +144,18 @@
           </FormKit>
         </section>
         <section v-show="pageCounter === 2">
-          <FormKit type="group" name="agreement">
+          <FormKit type="group" name="additionalInfo">
+            <FormKit
+              type="checkbox"
+              name="additionalOptions"
+              :options="{
+                thirdMember:
+                  'Zijn er 3 leden of meer van uw familie lid van de club?',
+                gJudoka: 'Schrijft u in voor de g-judo groep?',
+              }"
+              label="Aanvullende vragen"
+              :value="false"
+            />
             <ClientOnly>
               <FormKit
                 type="select"
@@ -193,8 +200,6 @@ const pageCounter = ref(0);
 const submittedForm = ref(false);
 
 const submitHandler = async (content: memberType) => {
-  console.log(content);
-
   try {
     const { data, error } = await useFetch("/api/form", {
       method: "POST",
@@ -229,12 +234,11 @@ const submitHandler = async (content: memberType) => {
     }
   }
   &__pagebuttons {
-    display: flex;
-    gap: 5rem;
     &--leftalign,
     &--rightalign,
     &--both {
-      @extend .content__pagebuttons;
+      display: flex;
+      gap: 5rem;
     }
     &--leftalign {
       justify-content: flex-start;
@@ -259,9 +263,9 @@ const submitHandler = async (content: memberType) => {
     width: 10px;
     height: 10px;
     border-radius: 10px;
-    background-color: grey;
+    background-color: hsl(0, 0%, 50%);
     &--active {
-      background-color: #a52822;
+      background-color: hsl(3, 66%, 39%);
     }
   }
 }
