@@ -151,13 +151,18 @@
             <ClientOnly>
               <FormKit
                 type="select"
-                label="Bent u ermee akkoord dat foto's van u/uw kind op sociale media verschijnen?"
+                label="Bent u ermee akkoord dat foto's van u/uw kind op facebook/instagram verschijnen?"
                 :options="{
                   yes: 'Ja, ik ben hiermee akkoord',
                   no: 'Nee, ik ben hier niet mee akkoord',
                 }"
                 placeholder="Bent u hiermee akkoord?"
                 name="socialMediaAgreement"
+                validation="required"
+                :validation-messages="{
+                  required:
+                    'Gelieve aan te duiden of u hiermee akkoord bent of niet.',
+                }"
               />
             </ClientOnly>
           </FormKit>
