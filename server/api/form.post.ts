@@ -1,5 +1,5 @@
 import validator from "validator";
-import { defineEventHandler } from "h3";
+import { defineEventHandler, useBody } from "h3";
 import {
   createTransport,
   createTestAccount,
