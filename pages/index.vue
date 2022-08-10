@@ -104,6 +104,7 @@
               name="phone"
               label="Gsm/telefoon"
               validation="required"
+              placeholder="031234567"
               :validation-messages="{
                 required: 'Wat is uw telefoon/gsm nummer?',
               }"
