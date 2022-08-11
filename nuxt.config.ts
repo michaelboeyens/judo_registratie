@@ -11,6 +11,13 @@ export default defineNuxtConfig({
   css: ["normalize.css", "@formkit/themes/genesis", "~/assets/scss/main.scss"],
   modules: ["@formkit/nuxt"],
   nitro: { preset: "netlify" },
+  runtimeConfig: {
+    emailServername: "",
+    emailPassword: "",
+    emailHost: "",
+    emailRecipient: "",
+    emailSender: "",
+  },
   telemetry: false,
   typescript: {
     shim: false,

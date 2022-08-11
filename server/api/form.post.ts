@@ -1,15 +1,7 @@
 import validator from "validator";
 import { defineEventHandler, useBody } from "h3";
-import {
-  createTransport,
-  createTestAccount,
-  getTestMessageUrl,
-} from "nodemailer";
-import type { memberType, additionalOptionsType } from "~/types";
-
-type OptionsFlags<Type> = {
-  [Property in keyof Type]: number;
-};
+import { createTransport } from "nodemailer";
+import type { memberType } from "~/types";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -74,6 +66,26 @@ export default defineEventHandler(async (event) => {
       gJudoka: additional.gJudoka,
       thirdMember: additional.thirdMember,
     };
+
+    const mailMessage = {
+      from: useRuntimeConfig().emailSender,
+      to: useRuntimeConfig().emailRecipient,
+      subject: "email test",
+      text: JSON.stringify(returnObj),
+      html: `<p>${JSON.stringify(returnObj)}</p>`,
+    };
+
+    const transporter = createTransport({
+      host: useRuntimeConfig().emailHost,
+      port: 465,
+      secure: true,
+      auth: {
+        user: useRuntimeConfig().emailServername,
+        pass: useRuntimeConfig().emailPassword,
+      },
+    });
+
+    transporter.sendMail(mailMessage);
 
     console.log("returnObj: ", returnObj);
     return {
