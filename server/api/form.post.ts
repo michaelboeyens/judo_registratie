@@ -67,21 +67,23 @@ export default defineEventHandler(async (event) => {
       thirdMember: additional.thirdMember,
     };
 
+    const config = useRuntimeConfig();
+
     const mailMessage = {
-      from: useRuntimeConfig().emailSender,
-      to: useRuntimeConfig().emailRecipient,
+      from: config.emailSender,
+      to: config.emailRecipient,
       subject: "email test",
       text: JSON.stringify(returnObj),
       html: `<p>${JSON.stringify(returnObj)}</p>`,
     };
 
     const transporter = createTransport({
-      host: useRuntimeConfig().emailHost,
+      host: config.emailHost,
       port: 465,
       secure: true,
       auth: {
-        user: useRuntimeConfig().emailServername,
-        pass: useRuntimeConfig().emailPassword,
+        user: config.emailServername,
+        pass: config.emailPassword,
       },
     });
 
