@@ -12,11 +12,11 @@ export default defineNuxtConfig({
   modules: ["@formkit/nuxt"],
   nitro: { preset: "netlify" },
   runtimeConfig: {
-    emailServername: "",
-    emailPassword: "",
-    emailHost: "",
-    emailRecipient: "",
-    emailSender: "",
+    emailServername: process.env.NUXT_EMAIL_SERVERNAME ?? "",
+    emailPassword: process.env.NUXT_EMAIL_PASSWORD ?? "",
+    emailHost: process.env.NUXT_EMAIL_HOST ?? "",
+    emailRecipient: process.env.NUXT_EMAIL_RECIPIENT ?? "",
+    emailSender: process.env.NUXT_EMAIL_SENDER ?? "",
   },
   telemetry: false,
   typescript: {
