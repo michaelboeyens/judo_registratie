@@ -92,6 +92,7 @@ export default defineEventHandler(async (event) => {
     console.log("returnObj: ", returnObj);
     return {
       sendMail: returnObj,
+      emailsender: config.emailSender ?? "no env",
     };
   } catch (err) {
     console.error(err);
