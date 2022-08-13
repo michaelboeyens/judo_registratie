@@ -23,12 +23,8 @@ export default defineEventHandler(async (event) => {
     lastName = escape(trim(lastName));
     birthDate = escape(trim(birthDate));
     other = escape(trim(other ?? ""));
-    let photoAgreement: string | number = escape(trim(socialMediaAgreement));
-    if (photoAgreement === "no") {
-      photoAgreement = 0;
-    } else {
-      photoAgreement = 1;
-    }
+    const photoAgreement: number =
+      escape(trim(socialMediaAgreement)) === "no" ? 0 : 1;
     const additional: { [key: string]: number } = {
       gJudoka: 0,
       thirdMember: 0,
@@ -40,13 +36,6 @@ export default defineEventHandler(async (event) => {
     }
 
     if (!isEmail(email)) {
-      //   const normalizedMail = normalizeEmail(email);
-      //   if (typeof normalizedMail === "string") {
-      //     email = normalizedMail;
-      //   } else {
-      //     return { sendMail: false };
-      //   }
-      // } else {
       return { sendMail: false };
     }
 
@@ -67,8 +56,21 @@ export default defineEventHandler(async (event) => {
       thirdMember: additional.thirdMember,
     };
 
+    // get env vars
     const config = useRuntimeConfig();
 
+    // define connection to mailserver
+    const transporter = createTransport({
+      host: config.emailHost,
+      port: 465,
+      secure: true,
+      auth: {
+        user: config.emailServername,
+        pass: config.emailPassword,
+      },
+    });
+
+    // message to admin
     const mailMessage = {
       from: config.emailSender,
       to: config.emailRecipient,
@@ -77,6 +79,7 @@ export default defineEventHandler(async (event) => {
       html: `<p>${JSON.stringify(returnObj)}</p>`,
     };
 
+    // message to client
     const clientMailMessage = {
       from: config.emailSender,
       to: email,
@@ -92,16 +95,6 @@ TESTGEGEVENS: ${JSON.stringify(returnObj)}`,
       Koninklijke Judoclub Bazel</p>
       <p>TESTGEGEVENS: ${JSON.stringify(returnObj)}</p>`,
     };
-
-    const transporter = createTransport({
-      host: config.emailHost,
-      port: 465,
-      secure: true,
-      auth: {
-        user: config.emailServername,
-        pass: config.emailPassword,
-      },
-    });
 
     const response = await transporter.sendMail(mailMessage);
     let clientResponse: SentMessageInfo | null = null;
