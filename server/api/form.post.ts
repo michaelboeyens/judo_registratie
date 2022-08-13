@@ -1,6 +1,6 @@
 import validator from "validator";
 import { defineEventHandler, useBody } from "h3";
-import { createTransport } from "nodemailer";
+import { createTransport, type SentMessageInfo } from "nodemailer";
 import type { memberType } from "~/types";
 
 export default defineEventHandler(async (event) => {
@@ -77,6 +77,20 @@ export default defineEventHandler(async (event) => {
       html: `<p>${JSON.stringify(returnObj)}</p>`,
     };
 
+    const clientMailMessage = {
+      from: config.emailSender,
+      to: email,
+      subject: "inschrijving judoclub test",
+      text: `Bedankt voor uw inschrijving,\n
+Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.\n
+Met vriendelijke groeten,\n
+Koninklijke Judoclub Bazel`,
+      html: `<p>Bedankt voor uw inschrijving<br />
+      Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.</p>
+      <p>Met vriendelijke groeten,<br />
+      Koninklijke Judoclub Bazel</p>`,
+    };
+
     const transporter = createTransport({
       host: config.emailHost,
       port: 465,
@@ -88,11 +102,15 @@ export default defineEventHandler(async (event) => {
     });
 
     const response = await transporter.sendMail(mailMessage);
+    let clientResponse: SentMessageInfo | null = null;
+    if (response.accepted.length > 0) {
+      clientResponse = await transporter.sendMail(clientMailMessage);
+    }
 
-    console.log("returnObj: ", returnObj);
     return {
       sendMail: returnObj,
-      emailResponse: response ?? "no env",
+      emailResponse: response,
+      clientEmailResponse: clientResponse,
     };
   } catch (err) {
     console.error(err);
