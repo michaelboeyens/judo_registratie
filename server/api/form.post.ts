@@ -87,12 +87,12 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    transporter.sendMail(mailMessage);
+    const response = await transporter.sendMail(mailMessage);
 
     console.log("returnObj: ", returnObj);
     return {
       sendMail: returnObj,
-      emailsender: config.emailSender ?? "no env",
+      emailResponse: response ?? "no env",
     };
   } catch (err) {
     console.error(err);
