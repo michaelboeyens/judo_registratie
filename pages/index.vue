@@ -11,7 +11,7 @@
         />
       </div>
       <h2>Inschrijvingsformulier</h2>
-      <p>*: verplichte velden</p>
+      <p v-if="!submittedForm">*: verplichte velden</p>
       <FormKit
         v-if="!submittedForm"
         type="form"
