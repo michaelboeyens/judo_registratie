@@ -11,6 +11,7 @@
         />
       </div>
       <h2>Inschrijvingsformulier</h2>
+      <p>*: verplichte velden</p>
       <FormKit
         v-if="!submittedForm"
         type="form"
@@ -31,7 +32,7 @@
               <FormKit
                 type="select"
                 placeholder="Selecteer het type inschrijving"
-                label="Type inschrijving"
+                label="Type inschrijving *"
                 :options="{ newMember: 'Nieuw lid', oldMember: 'Bestaand lid' }"
                 validation="+required"
                 name="registrationType"
@@ -41,7 +42,7 @@
             <FormKit
               type="text"
               name="firstName"
-              label="Voornaam"
+              label="Voornaam *"
               validation="required"
               placeholder="Jan"
               :validation-messages="{
@@ -51,7 +52,7 @@
             <FormKit
               type="text"
               name="lastName"
-              label="Achternaam"
+              label="Achternaam *"
               validation="required"
               placeholder="Vermeulen"
               :validation-messages="{
@@ -61,7 +62,7 @@
             <FormKit
               type="date"
               name="birthDate"
-              label="Geboortedatum"
+              label="Geboortedatum *"
               validation="required"
               :validation-messages="{ required: 'Wat is uw geboortedatum?' }"
             />
@@ -85,7 +86,7 @@
             <FormKit
               type="email"
               name="email"
-              label="Emailadres"
+              label="Emailadres *"
               validation="required|email"
               placeholder="mijnemailadres@judobazel.be"
               :validation-messages="{
@@ -96,7 +97,7 @@
             <FormKit
               type="text"
               name="phone"
-              label="Gsm/telefoon"
+              label="Gsm/telefoon *"
               validation="required"
               placeholder="031234567"
               :validation-messages="{
@@ -106,14 +107,14 @@
             <FormKit
               type="text"
               name="streetName"
-              label="Straat"
+              label="Straat *"
               validation="required"
               placeholder="dorpstraat 1"
               :validation-messages="{ required: 'In welke straat woont u' }"
             />
             <FormKit
               type="text"
-              label="Postcode"
+              label="Postcode *"
               name="postalCode"
               validation="required|number|length:4,4"
               placeholder="9150"
@@ -128,7 +129,7 @@
             <FormKit
               type="text"
               name="city"
-              label="Gemeente"
+              label="Gemeente *"
               validation="required"
               placeholder="Bazel"
               :validation-messages="{ required: 'In welke gemeente woont u?' }"
@@ -159,7 +160,7 @@
             <ClientOnly>
               <FormKit
                 type="select"
-                label="Bent u ermee akkoord dat foto's van u/uw kind op facebook/instagram verschijnen?"
+                label="Bent u ermee akkoord dat foto's van u/uw kind op facebook/instagram verschijnen? *"
                 :options="{
                   yes: 'Ja, ik ben hiermee akkoord',
                   no: 'Nee, ik ben hier niet mee akkoord',

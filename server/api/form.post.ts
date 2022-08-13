@@ -39,14 +39,14 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (isEmail(email)) {
-      const normalizedMail = normalizeEmail(email);
-      if (typeof normalizedMail === "string") {
-        email = normalizedMail;
-      } else {
-        return { sendMail: false };
-      }
-    } else {
+    if (!isEmail(email)) {
+      //   const normalizedMail = normalizeEmail(email);
+      //   if (typeof normalizedMail === "string") {
+      //     email = normalizedMail;
+      //   } else {
+      //     return { sendMail: false };
+      //   }
+      // } else {
       return { sendMail: false };
     }
 
