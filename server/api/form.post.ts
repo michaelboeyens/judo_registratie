@@ -81,14 +81,16 @@ export default defineEventHandler(async (event) => {
       from: config.emailSender,
       to: email,
       subject: "inschrijving judoclub test",
-      text: `Bedankt voor uw inschrijving,\n
+      text: `TEST: Bedankt voor uw inschrijving,\n
 Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.\n
 Met vriendelijke groeten,\n
-Koninklijke Judoclub Bazel`,
-      html: `<p>Bedankt voor uw inschrijving<br />
+Koninklijke Judoclub Bazel
+TESTGEGEVENS: ${JSON.stringify(returnObj)}`,
+      html: `<p>TEST: Bedankt voor uw inschrijving<br />
       Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.</p>
       <p>Met vriendelijke groeten,<br />
-      Koninklijke Judoclub Bazel</p>`,
+      Koninklijke Judoclub Bazel</p>
+      <p>TESTGEGEVENS: ${JSON.stringify(returnObj)}</p>`,
     };
 
     const transporter = createTransport({
