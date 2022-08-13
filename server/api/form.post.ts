@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       member: { registrationType, firstName, lastName, birthDate, other },
       additionalInfo: { additionalOptions, socialMediaAgreement },
     }: memberType = await useBody(event);
-    const { escape, trim, isEmail, normalizeEmail } = validator;
+    const { escape, trim, isEmail } = validator;
 
     // check and transform user vars
     email = escape(trim(email));
