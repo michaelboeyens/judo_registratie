@@ -189,7 +189,12 @@
           :classes="{ outer: 'content__submit' }"
         />
       </FormKit>
-      <p v-else>Uw inschrijvingsformulier is verzonden!</p>
+      <div v-else>
+        <p>Uw inschrijvingsformulier is verzonden!</p>
+        <FormKit type="button" @click="$router.go()"
+          >Nieuwe inschrijving</FormKit
+        >
+      </div>
     </main>
   </div>
 </template>
