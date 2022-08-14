@@ -12,152 +12,159 @@
       </div>
       <h2>Inschrijvingsformulier</h2>
       <p v-if="!submittedForm">*: verplichte velden</p>
-      <FormKit
-        v-if="!submittedForm"
-        type="form"
-        :config="{
-          classes: {
-            input: 'content__form-input',
-            fieldset: 'content__form-fieldset',
-            wrapper: 'content__form-wrapper',
-          },
-        }"
-        :actions="false"
-        @submit="submitHandler"
-        #default="{ state: { valid } }"
-      >
-        <section v-show="pageCounter === 0">
-          <FormKit type="group" name="member">
-            <ClientOnly>
+      <ClientOnly>
+        <FormKit
+          v-if="!submittedForm"
+          type="form"
+          :config="{
+            classes: {
+              input: 'content__form-input',
+              fieldset: 'content__form-fieldset',
+              wrapper: 'content__form-wrapper',
+            },
+          }"
+          :actions="false"
+          @submit="submitHandler"
+          #default="{ state: { valid } }"
+        >
+          <section v-show="pageCounter === 0">
+            <FormKit type="group" name="member">
               <FormKit
                 type="select"
                 placeholder="Selecteer het type inschrijving"
                 label="Type inschrijving *"
-                :options="{ newMember: 'Nieuw lid', oldMember: 'Bestaand lid' }"
+                :options="{
+                  newMember: 'Nieuw lid',
+                  oldMember: 'Bestaand lid',
+                }"
                 validation="+required"
                 name="registrationType"
                 :validation-messages="{ required: 'Bent u al een lid?' }"
               />
-            </ClientOnly>
-            <FormKit
-              type="text"
-              name="firstName"
-              label="Voornaam *"
-              validation="required"
-              placeholder="Jan"
-              :validation-messages="{
-                required: 'Wat is uw voornaam?',
-              }"
-            />
-            <FormKit
-              type="text"
-              name="lastName"
-              label="Achternaam *"
-              validation="required"
-              placeholder="Vermeulen"
-              :validation-messages="{
-                required: 'Wat is uw achternaam?',
-              }"
-            />
-            <FormKit
-              type="date"
-              name="birthDate"
-              label="Geboortedatum *"
-              validation="required"
-              :validation-messages="{ required: 'Wat is uw geboortedatum?' }"
-            />
-            <FormKit
-              type="textarea"
-              name="other"
-              label="Andere gegevens"
-              rows="10"
-              placeholder="Hier kan je andere gegevens plaatsen die mogelijk belangrijk zijn voor de trainers"
-            />
-            <FormKit
-              type="button"
-              label="Volgende"
-              @click="pageCounter = 1"
-              :classes="{ wrapper: 'content__pagebuttons--rightalign' }"
-            />
-          </FormKit>
-        </section>
-        <section v-show="pageCounter === 1">
-          <FormKit type="group" name="family">
-            <FormKit
-              type="email"
-              name="email"
-              label="Emailadres *"
-              validation="required|email"
-              placeholder="mijnemailadres@judobazel.be"
-              :validation-messages="{
-                required: 'Wat is uw emailadres?',
-                email: 'Gelieve een geldig emailadres op te geven',
-              }"
-            />
-            <FormKit
-              type="text"
-              name="phone"
-              label="Gsm/telefoon *"
-              validation="required"
-              placeholder="031234567"
-              :validation-messages="{
-                required: 'Wat is uw telefoon/gsm nummer?',
-              }"
-            />
-            <FormKit
-              type="text"
-              name="streetName"
-              label="Straat *"
-              validation="required"
-              placeholder="dorpstraat 1"
-              :validation-messages="{ required: 'In welke straat woont u' }"
-            />
-            <FormKit
-              type="text"
-              label="Postcode *"
-              name="postalCode"
-              validation="required|number|length:4,4"
-              placeholder="9150"
-              minlength="4"
-              maxlength="4"
-              :validation-messages="{
-                required: 'Wat is uw postcode?',
-                number: 'De postcode moet een nummer zijn.',
-                length: 'De postcode moet 4 cijfers lang zijn.',
-              }"
-            />
-            <FormKit
-              type="text"
-              name="city"
-              label="Gemeente *"
-              validation="required"
-              placeholder="Bazel"
-              :validation-messages="{ required: 'In welke gemeente woont u?' }"
-            />
-            <div class="content__pagebuttons--both">
-              <FormKit type="button" label="Vorige" @click="pageCounter = 0" />
+              <FormKit
+                type="text"
+                name="firstName"
+                label="Voornaam *"
+                validation="required"
+                placeholder="Jan"
+                :validation-messages="{
+                  required: 'Wat is uw voornaam?',
+                }"
+              />
+              <FormKit
+                type="text"
+                name="lastName"
+                label="Achternaam *"
+                validation="required"
+                placeholder="Vermeulen"
+                :validation-messages="{
+                  required: 'Wat is uw achternaam?',
+                }"
+              />
+              <FormKit
+                type="date"
+                name="birthDate"
+                label="Geboortedatum *"
+                validation="required"
+                :validation-messages="{ required: 'Wat is uw geboortedatum?' }"
+              />
+              <FormKit
+                type="textarea"
+                name="other"
+                label="Andere gegevens"
+                rows="10"
+                placeholder="Hier kan je andere gegevens plaatsen die mogelijk belangrijk zijn voor de trainers"
+              />
               <FormKit
                 type="button"
                 label="Volgende"
-                @click="pageCounter = 2"
+                @click="pageCounter = 1"
+                :classes="{ wrapper: 'content__pagebuttons--rightalign' }"
               />
-            </div>
-          </FormKit>
-        </section>
-        <section v-show="pageCounter === 2">
-          <FormKit type="group" name="additionalInfo">
-            <FormKit
-              type="checkbox"
-              name="additionalOptions"
-              :options="{
-                thirdMember:
-                  'Zijn er 3 leden of meer van uw familie lid van de club?',
-                gJudoka: 'Schrijft u in voor de g-judo groep?',
-              }"
-              label="Aanvullende vragen"
-              :value="false"
-            />
-            <ClientOnly>
+            </FormKit>
+          </section>
+          <section v-show="pageCounter === 1">
+            <FormKit type="group" name="family">
+              <FormKit
+                type="email"
+                name="email"
+                label="Emailadres *"
+                validation="required|email"
+                placeholder="mijnemailadres@judobazel.be"
+                :validation-messages="{
+                  required: 'Wat is uw emailadres?',
+                  email: 'Gelieve een geldig emailadres op te geven',
+                }"
+              />
+              <FormKit
+                type="text"
+                name="phone"
+                label="Gsm/telefoon *"
+                validation="required"
+                placeholder="031234567"
+                :validation-messages="{
+                  required: 'Wat is uw telefoon/gsm nummer?',
+                }"
+              />
+              <FormKit
+                type="text"
+                name="streetName"
+                label="Straat *"
+                validation="required"
+                placeholder="dorpstraat 1"
+                :validation-messages="{ required: 'In welke straat woont u' }"
+              />
+              <FormKit
+                type="text"
+                label="Postcode *"
+                name="postalCode"
+                validation="required|number|length:4,4"
+                placeholder="9150"
+                minlength="4"
+                maxlength="4"
+                :validation-messages="{
+                  required: 'Wat is uw postcode?',
+                  number: 'De postcode moet een nummer zijn.',
+                  length: 'De postcode moet 4 cijfers lang zijn.',
+                }"
+              />
+              <FormKit
+                type="text"
+                name="city"
+                label="Gemeente *"
+                validation="required"
+                placeholder="Bazel"
+                :validation-messages="{
+                  required: 'In welke gemeente woont u?',
+                }"
+              />
+              <div class="content__pagebuttons--both">
+                <FormKit
+                  type="button"
+                  label="Vorige"
+                  @click="pageCounter = 0"
+                />
+                <FormKit
+                  type="button"
+                  label="Volgende"
+                  @click="pageCounter = 2"
+                />
+              </div>
+            </FormKit>
+          </section>
+          <section v-show="pageCounter === 2">
+            <FormKit type="group" name="additionalInfo">
+              <FormKit
+                type="checkbox"
+                name="additionalOptions"
+                :options="{
+                  thirdMember:
+                    'Zijn er 3 leden of meer van uw familie lid van de club?',
+                  gJudoka: 'Schrijft u in voor de g-judo groep?',
+                }"
+                label="Aanvullende vragen"
+                :value="false"
+              />
               <FormKit
                 type="select"
                 label="Bent u ermee akkoord dat foto's van u/uw kind op facebook/instagram verschijnen? *"
@@ -173,28 +180,28 @@
                     'Gelieve aan te duiden of u hiermee akkoord bent of niet.',
                 }"
               />
-            </ClientOnly>
-          </FormKit>
+            </FormKit>
+            <FormKit
+              type="button"
+              label="Vorige"
+              @click="pageCounter = 1"
+              :classes="{ wrapper: 'content__pagebuttons--leftalign' }"
+            />
+          </section>
           <FormKit
-            type="button"
-            label="Vorige"
-            @click="pageCounter = 1"
-            :classes="{ wrapper: 'content__pagebuttons--leftalign' }"
+            type="submit"
+            label="Inschrijven"
+            :disabled="!valid"
+            :classes="{ outer: 'content__submit' }"
           />
-        </section>
-        <FormKit
-          type="submit"
-          label="Inschrijven"
-          :disabled="!valid"
-          :classes="{ outer: 'content__submit' }"
-        />
-      </FormKit>
-      <div v-else>
-        <p>Uw inschrijvingsformulier is verzonden!</p>
-        <FormKit type="button" @click="$router.go(0)"
-          >Nieuwe inschrijving</FormKit
-        >
-      </div>
+        </FormKit>
+        <div v-else>
+          <p>Uw inschrijvingsformulier is verzonden!</p>
+          <FormKit type="button" @click="$router.go(0)"
+            >Nieuwe inschrijving</FormKit
+          >
+        </div>
+      </ClientOnly>
     </main>
   </div>
 </template>
