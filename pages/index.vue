@@ -191,7 +191,7 @@
       </FormKit>
       <div v-else>
         <p>Uw inschrijvingsformulier is verzonden!</p>
-        <FormKit type="button" @click="$router.go()"
+        <FormKit type="button" @click="$router.go(0)"
           >Nieuwe inschrijving</FormKit
         >
       </div>
