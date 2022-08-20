@@ -6,7 +6,7 @@ import type { memberType } from "~/types";
 export default defineEventHandler(async (event) => {
   try {
     let {
-      family: { email, phone, streetName, postalCode, city },
+      family: { email, phone, streetName, streetNumber, postalCode, city },
       member: { registrationType, firstName, lastName, birthDate, other },
       additionalInfo: { additionalOptions, socialMediaAgreement },
     }: memberType = await useBody(event);
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     email = escape(trim(email));
     phone = escape(trim(phone));
     streetName = escape(trim(streetName));
+    streetNumber = escape(trim(streetNumber));
     postalCode = escape(trim(postalCode));
     city = escape(trim(city));
     const registration = escape(trim(registrationType));
@@ -44,6 +45,7 @@ export default defineEventHandler(async (event) => {
       email,
       phone,
       streetName,
+      streetNumber,
       postalCode,
       city,
       registration,

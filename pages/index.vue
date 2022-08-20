@@ -106,14 +106,26 @@
                   required: 'Wat is uw telefoon/gsm nummer?',
                 }"
               />
-              <FormKit
-                type="text"
-                name="streetName"
-                label="Straat *"
-                validation="required"
-                placeholder="dorpstraat 1"
-                :validation-messages="{ required: 'In welke straat woont u' }"
-              />
+              <div class="content__container">
+                <FormKit
+                  type="text"
+                  name="streetName"
+                  label="Straat *"
+                  validation="required"
+                  placeholder="dorpstraat"
+                  :classes="{ outer: 'content__container__street' }"
+                  :validation-messages="{ required: 'In welke straat woont u' }"
+                />
+                <FormKit
+                  type="text"
+                  name="streetNumber"
+                  label="Straatnummer&nbsp;*"
+                  validation="required"
+                  placeholder="1"
+                  :classes="{ outer: 'content__container__streetnumber' }"
+                  :validation-messages="{ required: 'wat is uw straatnummer?' }"
+                />
+              </div>
               <FormKit
                 type="text"
                 label="Postcode *"
@@ -279,6 +291,18 @@ const submitHandler = async (content: memberType) => {
     background-color: hsl(0, 0%, 50%);
     &--active {
       background-color: hsl(3, 66%, 39%);
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+    &__street {
+      flex-grow: 3;
+    }
+    &__streetnumber {
+      flex-shrink: 2;
     }
   }
 }

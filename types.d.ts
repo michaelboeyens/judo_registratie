@@ -2,6 +2,7 @@ type familyType = {
   email: string;
   phone: string;
   streetName: string;
+  streetNumber: string;
   postalCode: string;
   city: string;
 };
