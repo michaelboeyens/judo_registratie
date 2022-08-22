@@ -67,6 +67,8 @@ export default defineEventHandler(async (event) => {
       thirdMember: additional.thirdMember,
     };
 
+    console.log("user input: ", JSON.parse(JSON.stringify(returnObj)));
+
     // get env vars
     const config = useRuntimeConfig();
 
@@ -85,7 +87,7 @@ export default defineEventHandler(async (event) => {
     const mailMessage = {
       from: config.emailSender,
       to: config.emailRecipient,
-      subject: "email test",
+      subject: `Inschrijving KJC Bazel: ${firstName} ${lastName}`,
       text: JSON.stringify(returnObj),
       html: `<p>${JSON.stringify(returnObj)}</p>`,
     };
@@ -94,17 +96,18 @@ export default defineEventHandler(async (event) => {
     const clientMailMessage = {
       from: config.emailSender,
       to: email,
-      subject: "inschrijving judoclub test",
-      text: `TEST: Bedankt voor uw inschrijving,\n
+      subject: `Bevesting inschrijving ${firstName} ${lastName} bij Koninklijke Judoclub Bazel`,
+      text: `Bedankt voor uw inschrijving,\n
 Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.\n
+\n
 Met vriendelijke groeten,\n
-Koninklijke Judoclub Bazel
-TESTGEGEVENS: ${JSON.stringify(returnObj)}`,
-      html: `<p>TEST: Bedankt voor uw inschrijving<br />
+Koninklijke Judoclub Bazel`,
+      html: `<p>Beste ${firstName},</p>
+      <p>Bedankt voor uw inschrijving,<br />
       Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.</p>
+      <br />
       <p>Met vriendelijke groeten,<br />
-      Koninklijke Judoclub Bazel</p>
-      <p>TESTGEGEVENS: ${JSON.stringify(returnObj)}</p>`,
+      Koninklijke Judoclub Bazel</p>`,
     };
 
     const response = await transporter.sendMail(mailMessage);
