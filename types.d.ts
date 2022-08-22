@@ -1,5 +1,6 @@
 type familyType = {
   email: string;
+  email2: string;
   phone: string;
   streetName: string;
   streetNumber: string;

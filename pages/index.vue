@@ -97,6 +97,16 @@
                 }"
               />
               <FormKit
+                type="email"
+                name="email2"
+                label="2e emailadres (optioneel)"
+                validation="email"
+                placeholder="mijnemailadres2@judobazel.be"
+                :validation-messages="{
+                  email: 'Gelieve een geldig emailadres op te geven',
+                }"
+              />
+              <FormKit
                 type="text"
                 name="phone"
                 label="Gsm/telefoon *"

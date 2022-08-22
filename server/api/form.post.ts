@@ -1,19 +1,28 @@
 import validator from "validator";
-import { defineEventHandler, useBody } from "h3";
+import { defineEventHandler, readBody } from "h3";
 import { createTransport, type SentMessageInfo } from "nodemailer";
 import type { memberType } from "~/types";
 
 export default defineEventHandler(async (event) => {
   try {
     let {
-      family: { email, phone, streetName, streetNumber, postalCode, city },
+      family: {
+        email,
+        email2,
+        phone,
+        streetName,
+        streetNumber,
+        postalCode,
+        city,
+      },
       member: { registrationType, firstName, lastName, birthDate, other },
       additionalInfo: { additionalOptions, socialMediaAgreement },
-    }: memberType = await useBody(event);
+    }: memberType = await readBody(event);
     const { escape, trim, isEmail } = validator;
 
     // check and transform user vars
     email = escape(trim(email));
+    email2 = escape(trim(email2));
     phone = escape(trim(phone));
     streetName = escape(trim(streetName));
     streetNumber = escape(trim(streetNumber));
@@ -36,7 +45,7 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (!isEmail(email)) {
+    if (!isEmail(email) || !isEmail(email2)) {
       return { sendMail: false };
     }
 
@@ -101,6 +110,11 @@ TESTGEGEVENS: ${JSON.stringify(returnObj)}`,
     const response = await transporter.sendMail(mailMessage);
     let clientResponse: SentMessageInfo | null = null;
     if (response.accepted.length > 0) {
+      clientResponse = await transporter.sendMail(clientMailMessage);
+    }
+
+    if (email2) {
+      clientMailMessage.to = email2;
       clientResponse = await transporter.sendMail(clientMailMessage);
     }
 
