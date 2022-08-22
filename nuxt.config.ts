@@ -4,7 +4,14 @@ import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "Inschrijving Koninklijke Judoclub Bazel",
+      title: "Inschrijvingsformulier Koninklijke Judoclub Bazel",
+      meta: [
+        {
+          name: "description",
+          content:
+            "Hier vindt u het inschrijvingsformulier om lid te worden van de Koninklijke Judoclub Bazel.",
+        },
+      ],
       htmlAttrs: { lang: "nl" },
     },
   },
