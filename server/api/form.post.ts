@@ -122,8 +122,6 @@ Koninklijke Judoclub Bazel`,
 
       return {
         sendMail: true,
-        emailResponse: response,
-        clientEmailResponse: clientResponse,
       };
     }
   } catch (err) {
