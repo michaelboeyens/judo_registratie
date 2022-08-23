@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
 
     // check and transform user vars
     email = escape(trim(email));
-    email2 = escape(trim(email2 || ""));
+    email2 = escape(trim(email2 ?? ""));
     phone = escape(trim(phone));
     streetName = escape(trim(streetName));
     streetNumber = escape(trim(streetNumber));

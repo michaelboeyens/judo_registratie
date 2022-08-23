@@ -217,11 +217,17 @@
             :classes="{ outer: 'content__submit' }"
           />
         </FormKit>
-        <div v-else>
+        <div v-else-if="!formResponse">
           <p>Uw inschrijvingsformulier is verzonden!</p>
           <FormKit type="button" @click="$router.go(0)"
             >Nieuwe inschrijving</FormKit
           >
+        </div>
+        <div v-else>
+          <p>
+            Bij het versturen van het formulier is er iets mislopen. Probeer
+            later opnieuw.
+          </p>
         </div>
       </ClientOnly>
     </main>
@@ -233,6 +239,7 @@ import type { memberType } from "@/types";
 
 const pageCounter = ref(0);
 const submittedForm = ref(false);
+const formResponse = ref(false);
 
 const submitHandler = async (content: memberType) => {
   try {
@@ -245,6 +252,9 @@ const submitHandler = async (content: memberType) => {
     if (error.value) {
       console.error("error: ", error.value);
     } else {
+      if (data.value.sendMail) {
+        formResponse.value = true;
+      }
       submittedForm.value = true;
     }
   } catch (err) {
