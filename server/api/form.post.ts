@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (!isEmail(email) || !isEmail(email2)) {
+    if (!isEmail(email) || (!isEmail(email2) && email2.length > 0)) {
       return { sendMail: false };
     } else {
       // create new returnObj with validated values

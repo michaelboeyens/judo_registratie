@@ -217,7 +217,7 @@
             :classes="{ outer: 'content__submit' }"
           />
         </FormKit>
-        <div v-else-if="!formResponse">
+        <div v-else-if="formResponse">
           <p>Uw inschrijvingsformulier is verzonden!</p>
           <FormKit type="button" @click="$router.go(0)"
             >Nieuwe inschrijving</FormKit
