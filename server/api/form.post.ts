@@ -113,11 +113,13 @@ Koninklijke Judoclub Bazel`,
       let clientResponse: SentMessageInfo | null = null;
       if (response.accepted.length > 0) {
         clientResponse = await transporter.sendMail(clientMailMessage);
+        console.log(`${email}`, clientResponse);
       }
 
       if (email2) {
         clientMailMessage.to = email2;
         clientResponse = await transporter.sendMail(clientMailMessage);
+        console.log(`${email2}`, clientResponse);
       }
 
       return {
