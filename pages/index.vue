@@ -40,6 +40,13 @@
                 validation="+required"
                 name="registrationType"
                 :validation-messages="{ required: 'Bent u al een lid?' }"
+                v-model="member"
+              />
+              <FormKit
+                v-if="member === 'newMember'"
+                type="textarea"
+                name="contactInfo"
+                label="Hoe kwam u in contact met onze club?"
               />
               <FormKit
                 type="text"
@@ -235,11 +242,12 @@
 </template>
 
 <script setup lang="ts">
-import type { memberType } from "@/types";
+import type { memberType, registrationType } from "@/types";
 
 const pageCounter = ref(0);
 const submittedForm = ref(false);
 const formResponse = ref(false);
+const member = ref<registrationType | null>(null);
 
 const submitHandler = async (content: memberType) => {
   try {

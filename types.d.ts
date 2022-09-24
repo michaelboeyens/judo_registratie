@@ -8,8 +8,10 @@ type familyType = {
   city: string;
 };
 
+export type registrationType = "oldMember" | "newMember" | "";
+
 type baseMemberType = {
-  registrationType: "oldMember" | "newMember" | "";
+  registrationType: registrationType;
   firstName: string;
   lastName: string;
   birthDate: string;
