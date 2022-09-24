@@ -18,7 +18,7 @@ type baseMemberType = {
   other?: string;
 };
 
-export type additionalOptionsType = "gJudoka" | "thirdMember";
+type additionalOptionsType = "gJudoka" | "thirdMember";
 
 type additionalInfoType = {
   additionalOptions: additionalOptions[];
