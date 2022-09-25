@@ -91,13 +91,16 @@ export default defineEventHandler(async (event) => {
         },
       });
 
+      const adminMessage = JSON.parse(JSON.stringify(returnObj));
+      adminMessage["email2"] = email2 ?? "";
+
       // message to admin
       const mailMessage = {
         from: config.emailSender,
         to: config.emailRecipient,
         subject: `Inschrijving KJC Bazel: ${firstName} ${lastName}`,
-        text: JSON.stringify(returnObj),
-        html: `<p>${JSON.stringify(returnObj)}</p>`,
+        text: JSON.stringify(adminMessage),
+        html: `<p>${JSON.stringify(adminMessage}</p>`,
       };
 
       // message to client
