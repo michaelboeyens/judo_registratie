@@ -100,7 +100,7 @@ export default defineEventHandler(async (event) => {
         to: config.emailRecipient,
         subject: `Inschrijving KJC Bazel: ${firstName} ${lastName}`,
         text: JSON.stringify(adminMessage),
-        html: `<p>${JSON.stringify(adminMessage}</p>`,
+        html: `<p>${JSON.stringify(adminMessage)}</p>`,
       };
 
       // message to client
