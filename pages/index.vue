@@ -45,8 +45,8 @@
               <FormKit
                 v-if="member === 'newMember'"
                 type="textarea"
-                name="contactInfo"
-                label="Hoe kwam u in contact met onze club?"
+                name="connectionInfo"
+                label="Hoe kwam u bij onze club terecht?"
               />
               <FormKit
                 type="text"

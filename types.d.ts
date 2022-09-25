@@ -12,6 +12,7 @@ export type registrationType = "oldMember" | "newMember" | "";
 
 type baseMemberType = {
   registrationType: registrationType;
+  connectionInfo?: string;
   firstName: string;
   lastName: string;
   birthDate: string;

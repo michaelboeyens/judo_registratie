@@ -15,7 +15,14 @@ export default defineEventHandler(async (event) => {
         postalCode,
         city,
       },
-      member: { registrationType, firstName, lastName, birthDate, other },
+      member: {
+        registrationType,
+        firstName,
+        connectionInfo,
+        lastName,
+        birthDate,
+        other,
+      },
       additionalInfo: { additionalOptions, socialMediaAgreement },
     }: memberType = await readBody(event);
     const { escape, trim, isEmail } = validator;
@@ -32,6 +39,7 @@ export default defineEventHandler(async (event) => {
     firstName = escape(trim(firstName));
     lastName = escape(trim(lastName));
     birthDate = escape(trim(birthDate));
+    connectionInfo = escape(trim(connectionInfo ?? ""));
     other = escape(trim(other ?? ""));
     const photoAgreement: number =
       escape(trim(socialMediaAgreement)) === "no" ? 0 : 1;
@@ -60,6 +68,7 @@ export default defineEventHandler(async (event) => {
         firstName,
         lastName,
         birthDate,
+        connectionInfo,
         other,
         photoAgreement,
         gJudoka: additional.gJudoka,
