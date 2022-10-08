@@ -53,7 +53,15 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (!isEmail(email) || (!isEmail(email2) && email2.length > 0)) {
+    const emailOptions = {
+      allow_utf8_local_part: false,
+      domain_specific_validation: true,
+    };
+
+    if (
+      !isEmail(email, emailOptions) ||
+      (!isEmail(email2, emailOptions) && email2.length > 0)
+    ) {
       return { sendMail: false };
     } else {
       // create new returnObj with validated values
