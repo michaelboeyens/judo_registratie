@@ -260,7 +260,7 @@ const submitHandler = async (content: memberType) => {
     if (error.value) {
       console.error("error: ", error.value);
     } else {
-      if (data.value.sendMail) {
+      if (data.value?.sendMail) {
         formResponse.value = true;
       }
       submittedForm.value = true;
