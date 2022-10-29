@@ -1,0 +1,12 @@
+.form {
+  &__global {
+    &__input,
+    &__fieldset {
+      background-color: var(--form-input-background-color);
+    }
+    &__wrapper,
+    &__fieldset {
+      max-width: none;
+    }
+  }
+}

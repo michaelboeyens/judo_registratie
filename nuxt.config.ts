@@ -13,7 +13,12 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: "nl" },
     },
   },
-  css: ["normalize.css", "@formkit/themes/genesis", "~/assets/scss/main.scss"],
+  css: [
+    "normalize.css",
+    "@formkit/themes/genesis",
+    "~/assets/scss/main.scss",
+    "~/assets/scss/form.scss",
+  ],
   modules: ["@formkit/nuxt"],
   nitro: { preset: "netlify" },
   runtimeConfig: {
