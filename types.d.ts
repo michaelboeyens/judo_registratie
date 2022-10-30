@@ -22,7 +22,7 @@ type baseMemberType = {
 type additionalOptionsType = "gJudoka" | "thirdMember";
 
 type additionalInfoType = {
-  additionalOptions: additionalOptions[];
+  additionalOptions: additionalOptionsType[];
   socialMediaAgreement: "yes" | "no";
 };
 
