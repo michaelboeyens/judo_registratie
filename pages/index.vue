@@ -24,8 +24,8 @@
           <section v-show="pageCounter === 0">
             <FormKit type="group" name="member">
               <FormKit
-                type="select"
-                placeholder="Selecteer het type inschrijving"
+                type="radio"
+                help="Selecteer het type inschrijving"
                 label="Type inschrijving *"
                 :options="{
                   newMember: 'Nieuw lid',
@@ -189,13 +189,13 @@
                 :value="false"
               />
               <FormKit
-                type="select"
+                type="radio"
                 label="Bent u ermee akkoord dat foto's van u/uw kind op facebook/instagram verschijnen? *"
                 :options="{
                   yes: 'Ja, ik ben hiermee akkoord',
                   no: 'Nee, ik ben hier niet mee akkoord',
                 }"
-                placeholder="Bent u hiermee akkoord?"
+                help="Bent u hiermee akkoord?"
                 name="socialMediaAgreement"
                 validation="required"
                 :validation-messages="{
