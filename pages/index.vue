@@ -236,12 +236,12 @@
 </template>
 
 <script setup lang="ts">
-import type { memberType, registrationType } from "@/types";
+import type { memberType } from "@/types";
 
 const pageCounter = ref(0);
 const submittedForm = ref(false);
 const formResponse = ref(false);
-const member = ref<registrationType | null>(null);
+const member = ref<memberType["member"]["registrationType"] | null>(null);
 
 const submitHandler = async (content: memberType) => {
   try {

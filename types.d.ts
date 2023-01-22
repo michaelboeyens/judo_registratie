@@ -1,17 +1,16 @@
-type familyType = {
-  email: string;
-  email2: string;
-  phone: string;
-  streetName: string;
-  streetNumber: string;
-  postalCode: string;
-  city: string;
-};
+type Family =
+  | "email"
+  | "email2"
+  | "phone"
+  | "streetName"
+  | "streetNumber"
+  | "postalCode"
+  | "city";
 
-export type registrationType = "oldMember" | "newMember" | "";
+type familyType = Record<Family, string>;
 
 type baseMemberType = {
-  registrationType: registrationType;
+  registrationType: "oldMember" | "newMember" | "";
   connectionInfo?: string;
   firstName: string;
   lastName: string;
@@ -19,10 +18,8 @@ type baseMemberType = {
   other?: string;
 };
 
-type additionalOptionsType = "gJudoka" | "thirdMember";
-
 type additionalInfoType = {
-  additionalOptions: additionalOptionsType[];
+  additionalOptions: ("gJudoka" | "thirdMember")[];
   socialMediaAgreement: "yes" | "no";
 };
 
