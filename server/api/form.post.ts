@@ -5,50 +5,31 @@ import type { memberType } from "~/types";
 
 export default defineEventHandler(async (event) => {
   try {
-    let {
-      family: {
-        email,
-        email2,
-        phone,
-        streetName,
-        streetNumber,
-        postalCode,
-        city,
-      },
-      member: {
-        registrationType,
-        firstName,
-        connectionInfo,
-        lastName,
-        birthDate,
-        other,
-      },
-      additionalInfo: { additionalOptions, socialMediaAgreement },
-    }: memberType = await readBody(event);
+    const { family, member, additionalInfo }: memberType = await readBody(
+      event
+    );
     const { escape, trim, isEmail } = validator;
 
+    const validateObj = <T>(obj: {
+      [P in keyof T]: string;
+    }): void => {
+      for (const key in obj) {
+        obj[key] = escape(trim(obj[key] ?? ""));
+      }
+    };
+
     // check and transform user vars
-    email = escape(trim(email));
-    email2 = escape(trim(email2 ?? ""));
-    phone = escape(trim(phone));
-    streetName = escape(trim(streetName));
-    streetNumber = escape(trim(streetNumber));
-    postalCode = escape(trim(postalCode));
-    city = escape(trim(city));
-    const registration = escape(trim(registrationType));
-    firstName = escape(trim(firstName));
-    lastName = escape(trim(lastName));
-    birthDate = escape(trim(birthDate));
-    connectionInfo = escape(trim(connectionInfo ?? ""));
-    other = escape(trim(other ?? ""));
+    validateObj(family);
+    validateObj(member);
+
     const photoAgreement: number =
-      escape(trim(socialMediaAgreement)) === "no" ? 0 : 1;
+      escape(trim(additionalInfo.socialMediaAgreement)) === "no" ? 0 : 1;
     const additional: { [key: string]: number } = {
       gJudoka: 0,
       thirdMember: 0,
     };
-    if (additionalOptions.length > 0) {
-      for (const item of additionalOptions) {
+    if (additionalInfo.additionalOptions.length > 0) {
+      for (const item of additionalInfo.additionalOptions) {
         additional[item] = 1;
       }
     }
@@ -59,25 +40,25 @@ export default defineEventHandler(async (event) => {
     };
 
     if (
-      !isEmail(email, emailOptions) ||
-      (!isEmail(email2, emailOptions) && email2.length > 0)
+      !isEmail(family.email, emailOptions) ||
+      (!isEmail(family.email2, emailOptions) && family.email2.length > 0)
     ) {
       return { sendMail: false };
     } else {
       // create new returnObj with validated values
       const returnObj = {
-        email,
-        phone,
-        streetName,
-        streetNumber,
-        postalCode,
-        city,
-        registration,
-        firstName,
-        lastName,
-        birthDate,
-        connectionInfo,
-        other,
+        email: family.email,
+        phone: family.phone,
+        streetName: family.streetName,
+        streetNumber: family.streetNumber,
+        postalCode: family.postalCode,
+        city: family.city,
+        registration: member.registrationType,
+        firstName: member.firstName,
+        lastName: member.lastName,
+        birthDate: member.birthDate,
+        connectionInfo: member.connectionInfo,
+        other: member.other,
         photoAgreement,
         gJudoka: additional.gJudoka,
         thirdMember: additional.thirdMember,
@@ -100,13 +81,13 @@ export default defineEventHandler(async (event) => {
       });
 
       const adminMessage = JSON.parse(JSON.stringify(returnObj));
-      adminMessage["email2"] = email2 ?? "";
+      adminMessage["email2"] = family.email2 ?? "";
 
       // message to admin
       const mailMessage = {
         from: config.emailSender,
         to: config.emailRecipient,
-        subject: `Inschrijving KJC Bazel: ${firstName} ${lastName}`,
+        subject: `Inschrijving KJC Bazel: ${member.firstName} ${member.lastName}`,
         text: JSON.stringify(adminMessage),
         html: `<p>${JSON.stringify(adminMessage)}</p>`,
       };
@@ -114,14 +95,14 @@ export default defineEventHandler(async (event) => {
       // message to client
       const clientMailMessage = {
         from: config.emailSender,
-        to: email,
-        subject: `Bevesting inschrijving ${firstName} ${lastName} bij Koninklijke Judoclub Bazel`,
+        to: family.email,
+        subject: `Bevesting inschrijving ${member.firstName} ${member.lastName} bij Koninklijke Judoclub Bazel`,
         text: `Bedankt voor uw inschrijving,\n
 Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.\n
 \n
 Met vriendelijke groeten,\n
 Koninklijke Judoclub Bazel`,
-        html: `<p>Beste ${firstName},</p>
+        html: `<p>Beste ${member.firstName},</p>
       <p>Bedankt voor uw inschrijving,<br />
       Wij hebben ze goed ontvangen, en gaan hiermee verder aan de slag.</p>
       <br />
@@ -133,13 +114,13 @@ Koninklijke Judoclub Bazel`,
       let clientResponse: SentMessageInfo | null = null;
       if (response.accepted.length > 0) {
         clientResponse = await transporter.sendMail(clientMailMessage);
-        console.log(`${email}`, clientResponse);
+        console.log(`${family.email}`, clientResponse);
       }
 
-      if (email2) {
-        clientMailMessage.to = email2;
+      if (family.email2) {
+        clientMailMessage.to = family.email2;
         clientResponse = await transporter.sendMail(clientMailMessage);
-        console.log(`${email2}`, clientResponse);
+        console.log(`${family.email2}`, clientResponse);
       }
 
       return {

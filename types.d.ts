@@ -10,7 +10,7 @@ type Family =
 type familyType = Record<Family, string>;
 
 type baseMemberType = {
-  registrationType: "oldMember" | "newMember" | "";
+  registrationType: "oldMember" | "newMember" | "" | string;
   connectionInfo?: string;
   firstName: string;
   lastName: string;
