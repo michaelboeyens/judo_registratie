@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     const { escape, trim, isEmail } = validator;
 
     const validateObj = <T>(obj: {
-      [P in keyof T]: string;
+      [P in keyof T]: string | undefined;
     }): void => {
       for (const key in obj) {
         obj[key] = escape(trim(obj[key] ?? ""));
