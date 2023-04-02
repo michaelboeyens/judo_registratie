@@ -20,7 +20,6 @@ export default defineNuxtConfig({
     "~/assets/scss/form.scss",
   ],
   modules: ["@formkit/nuxt"],
-  nitro: { preset: "netlify" },
   runtimeConfig: {
     emailServername: process.env.EMAIL_SERVERNAME ?? "",
     emailPassword: process.env.EMAIL_PASSWORD ?? "",
