@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/nodemailer": "^6.4.7",
     "@types/validator": "^13.7.12",
-    "nuxt": "^3.2.0",
+    "nuxt": "^3.4.3",
     "sass": "^1.58.1"
   },
   "dependencies": {
