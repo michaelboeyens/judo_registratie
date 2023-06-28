@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     "~/assets/scss/main.scss",
     "~/assets/scss/form.scss",
   ],
-  modules: ["@formkit/nuxt"],
+  modules: ["@formkit/nuxt", ["@nuxtjs/html-validator", { usePrettier: true }]],
   runtimeConfig: {
     emailServername: process.env.EMAIL_SERVERNAME ?? "",
     emailPassword: process.env.EMAIL_PASSWORD ?? "",
