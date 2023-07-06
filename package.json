@@ -10,7 +10,7 @@
     "@nuxtjs/html-validator": "^1.4.0",
     "@types/nodemailer": "^6.4.8",
     "@types/validator": "^13.7.17",
-    "nuxt": "^3.6.1",
+    "nuxt": "^3.6.2",
     "sass": "^1.63.6"
   },
   "dependencies": {

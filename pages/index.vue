@@ -243,6 +243,8 @@ const submittedForm = ref(false);
 const formResponse = ref(false);
 const member = ref<memberType["member"]["registrationType"] | null>(null);
 
+onUpdated(() => window.scrollTo(0, 0));
+
 const submitHandler = async (content: memberType) => {
   try {
     const { data, error } = await useFetch("/api/form", {
